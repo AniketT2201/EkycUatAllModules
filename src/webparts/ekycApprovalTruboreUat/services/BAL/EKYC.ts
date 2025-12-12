@@ -121,7 +121,7 @@ export default function DashboardOps(): IDashboardOps {
             const item = await spCrudOpsInstance.getItemData(
             listName,
             id,
-            "*,Id,Created,Modified,Author/Id,Author/Title,Author/EMail,Editor/Id,Editor/Title,Editor/EMail,ApprovedBy,CustomerID,defaultValue,Name,PhoneNo,StateHead/Id,StateHead/Title,StateHead/EMail,EmployeeCode,FirmName,Email,MobileNo,ApprovedBy,PipingSystem,NantionalHeadName,ZoneHeadName,StateHeadName,AttachmentFiles,SecurityCode",
+            "*,Id,Created,Modified,Author/Id,Author/Title,Author/EMail,Editor/Id,Editor/Title,Editor/EMail,ApprovedBy,CustomerID,defaultValue,Name,PhoneNo,StateHead/Id,StateHead/Title,StateHead/EMail,EmployeeCode,FirmName,Email,MobileNo,ApprovedBy,PipingSystem,NantionalHeadNameT,ZoneHeadNameT,StateHeadNameT,AttachmentFiles,SecurityCode",
             "AttachmentFiles, StateHead, Author, Editor",
             props
             );
