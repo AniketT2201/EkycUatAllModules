@@ -517,10 +517,10 @@ const columnsConfig = [
 
    const handleFetchSecutiryCode = async () => {
     // UAT url
-    //const _apiUrl = "https://uat.princepipes.com:567/api/TruboreCustomerKYC/sendKYCRequest";
+    const _apiUrl = "https://uat.princepipes.com:567/api/TruboreCustomerKYC/sendKYCRequest";
   
     // Production url
-    const _apiUrl = "https://travelservices.princepipes.com/imonwebapi-new/api/TruboreCustomerKYC/sendKYCRequest";
+    //const _apiUrl = "https://travelservices.princepipes.com/imonwebapi-new/api/TruboreCustomerKYC/sendKYCRequest";
 
       const requestBody = {
         ActionID: "1",

@@ -434,7 +434,7 @@ export const DispForm: React.FunctionComponent<IEkycApprovalTruboreUatProps> = (
                                 <label>State Head Name</label>
                                 <input
                                   type="text"
-                                  value={formData.StateHeadName}
+                                  value={formData.StateHeadNameT}
                                   readOnly
                                 />
                               </div>
@@ -444,7 +444,7 @@ export const DispForm: React.FunctionComponent<IEkycApprovalTruboreUatProps> = (
                                 <label>Zone Head Name</label>
                                 <input
                                   type="text"
-                                  value={formData.ZoneHeadName}
+                                  value={formData.ZoneHeadNameT}
                                   readOnly
                                 />
                               </div>
@@ -452,7 +452,7 @@ export const DispForm: React.FunctionComponent<IEkycApprovalTruboreUatProps> = (
                                 <label>National Head Name</label>
                                 <input
                                   type="text"
-                                  value={formData.NantionalHeadName}
+                                  value={formData.NantionalHeadNameT}
                                   readOnly
                                 />
                               </div>

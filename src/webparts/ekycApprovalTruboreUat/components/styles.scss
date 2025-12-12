@@ -1627,7 +1627,7 @@ ul {
 .searchIcon {
   position: absolute;
   left: 8px;
-  top: 40%;
+  top: 37%;
   transform: translateY(-50%);
   color: #999;
   pointer-events: none;
@@ -1910,7 +1910,7 @@ color: #005a9e; /* darker shade on hover */
 
 .popup-card-attachment {
   //position: relative;
-  width: 600px;
+  width: 80%;
   //min-height: 200px;
   background: linear-gradient(180deg, #fffffff7, #ff000f52 180%);
   border-radius: 12px;
@@ -1976,7 +1976,7 @@ color: #005a9e; /* darker shade on hover */
 
 .form-grid-0 {
   display: grid;
-  gap: 15px;
+  gap: 5px;
   margin-bottom: 20px;
 }
 

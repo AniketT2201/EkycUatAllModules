@@ -171,10 +171,10 @@ export const ViewKYC: React.FunctionComponent<IEkycTruboreUatProps> = (props: IE
     setSecurityNo(ID);
     setItemId(itemID);
     // UAT url
-    //const _apiUrl = "https://uat.princepipes.com:567/api/TruboreCustomerKYC/getCustomerKYCDetails";
+    const _apiUrl = "https://uat.princepipes.com:567/api/TruboreCustomerKYC/getCustomerKYCDetails";
 
     // Production url
-    const _apiUrl = "https://travelservices.princepipes.com/imonwebapi-new/api/TruboreCustomerKYC/getCustomerKYCDetails";
+    //const _apiUrl = "https://travelservices.princepipes.com/imonwebapi-new/api/TruboreCustomerKYC/getCustomerKYCDetails";
  
     const requestBody = {
       ActionID: "2",
@@ -356,9 +356,9 @@ export const ViewKYC: React.FunctionComponent<IEkycTruboreUatProps> = (props: IE
  
       const pinCode = kycData["Post Code"];
       // UAT url
-      //const _apiUrl = `https://uat.princepipes.com:446/wsVendorDetails.asmx/getPinCode?PinCode=${pinCode}`;
+      const _apiUrl = `https://uat.princepipes.com:446/wsVendorDetails.asmx/getPinCode?PinCode=${pinCode}`;
       // Production url
-      const _apiUrl = `https://travelservices.princepipes.com/wsVendorDetails.asmx/getPinCode?PinCode=${pinCode}`;
+      //const _apiUrl = `https://travelservices.princepipes.com/wsVendorDetails.asmx/getPinCode?PinCode=${pinCode}`;
       try {
         // Call the async method to fetch pin code data
         const data = await fetchPinCodeData(_apiUrl);
@@ -502,10 +502,10 @@ export const ViewKYC: React.FunctionComponent<IEkycTruboreUatProps> = (props: IE
       };
    
       // UAT url
-      //const _apiUrl = "https://uat.princepipes.com:567/api/TruboreCustomerKYC/updateCustomerKYCDetails";
+      const _apiUrl = "https://uat.princepipes.com:567/api/TruboreCustomerKYC/updateCustomerKYCDetails";
 
       // Production url
-      const _apiUrl = "https://travelservices.princepipes.com/imonwebapi-new/api/TruboreCustomerKYC/updateCustomerKYCDetails";
+      //const _apiUrl = "https://travelservices.princepipes.com/imonwebapi-new/api/TruboreCustomerKYC/updateCustomerKYCDetails";
    
       try {
         // Using HttpClient to send the POST request
@@ -536,10 +536,10 @@ export const ViewKYC: React.FunctionComponent<IEkycTruboreUatProps> = (props: IE
       };
       
       // UAT url
-      //const _apiUrl = "https://uat.princepipes.com:567/api/TruboreCustomerKYC/approveCustomerKYCDetails";
+      const _apiUrl = "https://uat.princepipes.com:567/api/TruboreCustomerKYC/approveCustomerKYCDetails";
 
       // Production url
-      const _apiUrl = "https://travelservices.princepipes.com/imonwebapi-new/api/TruboreCustomerKYC/approveCustomerKYCDetails";
+      //const _apiUrl = "https://travelservices.princepipes.com/imonwebapi-new/api/TruboreCustomerKYC/approveCustomerKYCDetails";
    
       try {
         // Using HttpClient to send the POST request
@@ -572,10 +572,10 @@ export const ViewKYC: React.FunctionComponent<IEkycTruboreUatProps> = (props: IE
       };
    
       // UAT url
-      //const _apiUrl = "https://uat.princepipes.com:567/api/TruboreCustomerKYC/RejectCustomerKYCDetails";
+      const _apiUrl = "https://uat.princepipes.com:567/api/TruboreCustomerKYC/RejectCustomerKYCDetails";
 
       // Production url
-      const _apiUrl = "https://travelservices.princepipes.com/imonwebapi-new/api/TruboreCustomerKYC/RejectCustomerKYCDetails";
+      //const _apiUrl = "https://travelservices.princepipes.com/imonwebapi-new/api/TruboreCustomerKYC/RejectCustomerKYCDetails";
    
       try {
         // Using HttpClient to send the POST request
@@ -601,10 +601,10 @@ export const ViewKYC: React.FunctionComponent<IEkycTruboreUatProps> = (props: IE
       };
    
       // UAT url
-      //const _apiUrl = "https://uat.princepipes.com:567/api/TruboreCustomerKYC/updateSHPID";
+      const _apiUrl = "https://uat.princepipes.com:567/api/TruboreCustomerKYC/updateSHPID";
 
       // Production url
-      const _apiUrl = "https://travelservices.princepipes.com/imonwebapi-new/api/TruboreCustomerKYC/updateSHPID";
+      //const _apiUrl = "https://travelservices.princepipes.com/imonwebapi-new/api/TruboreCustomerKYC/updateSHPID";
    
       try {
         // Using HttpClient to send the POST request
@@ -708,10 +708,10 @@ export const ViewKYC: React.FunctionComponent<IEkycTruboreUatProps> = (props: IE
       });
    
       // UAT url
-      //const _apiUrl = `https://uat.princepipes.com:446/wscustomerdetails.asmx/updateCustomerDetial?${params.toString()}`;
+      const _apiUrl = `https://uat.princepipes.com:446/wscustomerdetails.asmx/updateCustomerDetial?${params.toString()}`;
 
       // Production url
-      const _apiUrl = `https://travelservices.princepipes.com/wscustomerdetails.asmx/updateCustomerDetial?${params.toString()}`;
+      //const _apiUrl = `https://travelservices.princepipes.com/wscustomerdetails.asmx/updateCustomerDetial?${params.toString()}`;
    
       try {
         // Using HttpClient to send the GET request

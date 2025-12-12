@@ -427,9 +427,9 @@ const columnsConfig = [
 
       setFormData({
         ...item,
-        NationalHeadEmail: item.NantionalHeadName,
-        ZonalHeadEmail: item.ZoneHeadName,
-        StateHeadEmail: item.StateHeadName,
+        NationalHeadEmail: item.NantionalHeadNameT,
+        ZonalHeadEmail: item.ZoneHeadNameT,
+        StateHeadEmail: item.StateHeadNameT,
         SecurityCode: item.SecurityCode,
       });
 

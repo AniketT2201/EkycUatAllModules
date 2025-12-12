@@ -22,9 +22,9 @@ export interface IEKYC {
     Attachment: string;
     RegDetail: string;
     View: string;
-    NantionalHeadName?: any;
-    ZoneHeadName?: any;
-    StateHeadName?: any;
+    NantionalHeadNameT?: any;
+    ZoneHeadNameT?: any;
+    StateHeadNameT?: any;
     SecurityCode?: any;
     
     Department?: string;

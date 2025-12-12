@@ -41,7 +41,7 @@ export default function DashboardOps(): IDashboardOps {
 
             const results = await spCrudOpsInstance.getData(
                 "Ekyc",
-                "*,Id,Created,Modified,EmployeeCode,FirmName,Email,MobileNo,ApprovedBy,PipingSystem,NantionalHeadName,ZoneHeadName,StateHeadName,AttachmentFiles,SecurityCode",
+                "*,Id,Created,Modified,EmployeeCode,FirmName,Email,MobileNo,ApprovedBy,PipingSystem,NantionalHeadNameT,ZoneHeadNameT,StateHeadNameT,AttachmentFiles,SecurityCode",
                 "AttachmentFiles",
                 "PipingSystem eq 'Trubore'",
                 { column: "Id", isAscending: false }, 
@@ -68,9 +68,9 @@ export default function DashboardOps(): IDashboardOps {
                     MobileNo: item.MobileNo,
                     ApprovedBy: item.ApprovedBy,
                     PipingSystem: item.PipingSystem,
-                    NantionalHeadName: item.NantionalHeadName,
-                    ZoneHeadName: item.ZoneHeadName,
-                    StateHeadName: item.StateHeadName,
+                    NantionalHeadNameT: item.NantionalHeadNameT,
+                    ZoneHeadNameT: item.ZoneHeadNameT,
+                    StateHeadNameT: item.StateHeadNameT,
                     SecurityCode: item.SecurityCode
 
                 });
@@ -137,9 +137,9 @@ export default function DashboardOps(): IDashboardOps {
             MobileNo: item.MobileNo,
             ApprovedBy: item.ApprovedBy,
             PipingSystem: item.PipingSystem,
-            NantionalHeadName: item.NantionalHeadName,
-            ZoneHeadName: item.ZoneHeadName,
-            StateHeadName: item.StateHeadName,
+            NantionalHeadNameT: item.NantionalHeadNameT,
+            ZoneHeadNameT: item.ZoneHeadNameT,
+            StateHeadNameT: item.StateHeadNameT,
             SecurityCode: item.SecurityCode,
             CustomerID: item.CustomerID,
             defaultValue: item.defaultValue,

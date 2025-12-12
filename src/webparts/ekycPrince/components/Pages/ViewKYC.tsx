@@ -159,134 +159,6 @@ export const ViewKYC: React.FunctionComponent<IEkycPrinceProps> = (props: IEkycP
     };
 
 
-	// Fetch KYC data
-	// const fetchKYCData = async () => {
-	// 	const { ID, itemID } = getUrlVars();
-	// 	// const ID = "76CA35C4149F401C910DA04CB901A4B2";
-	// 	// const itemID = "1867";
-	// 	setSecurityNo(ID);
-	// 	setItemId(itemID);
-
-	// 	const apiUrl = "https://uat.princepipes.com:567/api/CustomerKYC/getCustomerKYCDetails";
-	// 	const data ={ ActionID: "2", SecurityNo: ID }
-	// 	try {
-	// 		// if (!httpClient) {
-	// 		// 	console.error("HttpClient not available");
-	// 		// 	return;
-	// 		// }
-	// 		// // ✅ Similar to your getHttpData pattern
-	// 		// const response: HttpClientResponse = await httpClient.post(
-	// 		// 	apiUrl,
-	// 		// 	HttpClient.configurations.v1,
-	// 		// 	{
-	// 		// 		headers: {
-	// 		// 			"Content-Type": "application/json",
-	// 		// 			"Accept": "application/json",
-	// 		// 		},
-	// 		// 		body: JSON.stringify({ ActionID: "2", SecurityNo: ID }),
-	// 		// 	}
-	// 		// );
-	// 		//const responseData =(await SPCRUDOPS()).postHttpData(apiUrl,data,props)
-	// 		const response = await kycService.getCustomerKYCDetails(data,ID, itemID);
-
-	// 		    if (response.aMessage[0].Result === "100") {
-	// 		      setKycData(response.Table[0]); // store all data in state
-	// 		      console.log("KYC Response: ", response.Table[0]);
-	// 		    } else {
-	// 		      console.error("No data found!");
-	// 		    }
-
-	// 		let  responseData: KYCResponse =await (await SPCRUDOPS()).postHttpData(apiUrl,data,props);
-
-	// 		if (responseData?.aMessage?.[0]?.Result === "100") {
-	// 			const data = responseData.Table[0];
-
-	// 			// ✅ Set KYC data
-	// 			setKycData({
-	// 				...data,
-	// 				DateofBirth: data.DateofBirth ? getFormatDate(data.DateofBirth) : "",
-	// 				ModifiedDatetime: getFormatDate(data.ModifiedDatetime),
-	// 			});
-
-	// 			setCustomerDetails(responseData.Table5);
-	// 			setSalesDetails(responseData.Table4);
-	// 			setSalesByCategory(responseData.Table1);
-	// 			setCustomerSales(responseData.Table3);
-	// 			setEstimatedBusiness(responseData.Table2);
-
-	// 			// ✅ Calculate growth %
-	// 			const prevYear2 = parseFloat(data.GrowthPrecedingYear2) || 0;
-	// 			const prevYear1 = parseFloat(data.GrowthPrecedingYear1) || 0;
-	// 			const lastYear = parseFloat(data.GrowthLastYear) || 0;
-
-	// 			const growth1 = prevYear2 ? ((prevYear1 / prevYear2 - 1) * 100).toFixed(2) : "0";
-	// 			const growth2 = prevYear1 ? ((lastYear / prevYear1 - 1) * 100).toFixed(2) : "0";
-
-	// 			setKycData((prev: any) =>
-	// 				prev
-	// 					? {
-	// 							...prev,
-	// 							Growth: "0",
-	// 							Growth1: growth1,
-	// 							Growth2: growth2,
-	// 						}
-	// 					: prev
-	// 			);
-
-	// 			// ✅ Check current approver & set permissions
-	// 			const currentApproverList = data.CurrentApprover.toLowerCase().split(",").map((email: string) => email.trim());
-	// 			if (currentApproverList.includes(currentUserEmail)) {
-	// 				setIsCurrentApprover(true);
-	// 				setShowButtons({
-	// 					approve: !["7", "8", "9"].includes(data["New KYC Status"]),
-	// 					reject: !["7", "8", "9"].includes(data["New KYC Status"]),
-	// 					update: !["7", "8", "9"].includes(data["New KYC Status"]),
-	// 					navision: data["New KYC Status"] === "7",
-	// 					save: ["7", "8"].includes(data["New KYC Status"]),
-	// 					secondaryPatch: data["New KYC Status"] === "8",
-	// 				});
-	// 			}
-	// 		} else {
-	// 			Swal.fire({
-	// 				icon: "warning",
-	// 				title: "No Data Found",
-	// 				text: "No KYC data was found for this Security Number.",
-	// 			});
-	// 		}
-	// 	} catch (error) {
-	// 		console.error("Error fetching KYC data:", error);
-
-	// 		if (error instanceof Error) {
-	// 			if (error.message.includes("timed out")) {
-	// 				Swal.fire({
-	// 					icon: "error",
-	// 					title: "Request Timeout",
-	// 					text: "The KYC API request timed out. Please try again or contact the administrator.",
-	// 				});
-	// 			} else if (error.message.includes("Failed to fetch")) {
-	// 				Swal.fire({
-	// 					icon: "error",
-	// 					title: "Network Error",
-	// 					text: "Failed to connect to the KYC API. Please check your network or contact the administrator.",
-	// 				});
-	// 			} else {
-	// 				Swal.fire({
-	// 					icon: "error",
-	// 					title: "Error",
-	// 					text: `Failed to fetch KYC data: ${error.message}`,
-	// 				});
-	// 			}
-	// 		} else {
-	// 			Swal.fire({
-	// 				icon: "error",
-	// 				title: "Error",
-	// 				text: "An unexpected error occurred.",
-	// 			});
-	// 		}
-	// 	}
-	// };
-	
-
 	const fetchKYCData = async () => {
     if (!currentUserEmail) {
       console.log('users email is not set');
@@ -297,10 +169,10 @@ export const ViewKYC: React.FunctionComponent<IEkycPrinceProps> = (props: IEkycP
 		setItemId(itemID);
 
     // UAT url
-	  //const _apiUrl = "https://uat.princepipes.com:567/api/CustomerKYC/getCustomerKYCDetails";
+	  const _apiUrl = "https://uat.princepipes.com:567/api/CustomerKYC/getCustomerKYCDetails";
 
     // Production url
-    const _apiUrl = "https://travelservices.princepipes.com/imonwebapi-new/api/CustomerKYC/getCustomerKYCDetails";
+    //const _apiUrl = "https://travelservices.princepipes.com/imonwebapi-new/api/CustomerKYC/getCustomerKYCDetails";
 
 		const requestBody = {
 			ActionID: "2",
@@ -481,9 +353,10 @@ export const ViewKYC: React.FunctionComponent<IEkycPrinceProps> = (props: IEkycP
 
       const pinCode = kycData["Post Code"];
       // UAT url
-      //const _apiUrl = `https://uat.princepipes.com:446/wsVendorDetails.asmx/getPinCode?PinCode=${pinCode}`;
+      const _apiUrl = `https://uat.princepipes.com:446/wsVendorDetails.asmx/getPinCode?PinCode=${pinCode}`;
+      
       // Production url
-      const _apiUrl = `https://travelservices.princepipes.com/wsVendorDetails.asmx/getPinCode?PinCode=${pinCode}`;
+      //const _apiUrl = `https://travelservices.princepipes.com/wsVendorDetails.asmx/getPinCode?PinCode=${pinCode}`;
       try {
         // Call the async method to fetch pin code data
         const data = await fetchPinCodeData(_apiUrl); 
@@ -626,10 +499,10 @@ export const ViewKYC: React.FunctionComponent<IEkycPrinceProps> = (props: IEkycP
       };
     
       // UAT url
-      //const _apiUrl = "https://uat.princepipes.com:567/api/CustomerKYC/updateCustomerKYCDetails";
+      const _apiUrl = "https://uat.princepipes.com:567/api/CustomerKYC/updateCustomerKYCDetails";
 
       // Production url
-      const _apiUrl = "https://travelservices.princepipes.com/imonwebapi-new/api/CustomerKYC/updateCustomerKYCDetails";
+      //const _apiUrl = "https://travelservices.princepipes.com/imonwebapi-new/api/CustomerKYC/updateCustomerKYCDetails";
     
       try {
         // Using HttpClient to send the POST request
@@ -660,10 +533,10 @@ export const ViewKYC: React.FunctionComponent<IEkycPrinceProps> = (props: IEkycP
       };
     
       // UAT url
-      //const _apiUrl = "https://uat.princepipes.com:567/api/CustomerKYC/approveCustomerKYCDetails";
+      const _apiUrl = "https://uat.princepipes.com:567/api/CustomerKYC/approveCustomerKYCDetails";
     
       // Production url
-      const _apiUrl = "https://travelservices.princepipes.com/imonwebapi-new/api/CustomerKYC/approveCustomerKYCDetails";
+      //const _apiUrl = "https://travelservices.princepipes.com/imonwebapi-new/api/CustomerKYC/approveCustomerKYCDetails";
 
       try {
         // Using HttpClient to send the POST request
@@ -696,10 +569,10 @@ export const ViewKYC: React.FunctionComponent<IEkycPrinceProps> = (props: IEkycP
       };
     
       // UAT url
-      //const _apiUrl = "https://uat.princepipes.com:567/api/CustomerKYC/RejectCustomerKYCDetails";
+      const _apiUrl = "https://uat.princepipes.com:567/api/CustomerKYC/RejectCustomerKYCDetails";
 
       // Production url
-      const _apiUrl = "https://travelservices.princepipes.com/imonwebapi-new/api/CustomerKYC/RejectCustomerKYCDetails";
+      //const _apiUrl = "https://travelservices.princepipes.com/imonwebapi-new/api/CustomerKYC/RejectCustomerKYCDetails";
     
       try {
         // Using HttpClient to send the POST request
@@ -725,10 +598,10 @@ export const ViewKYC: React.FunctionComponent<IEkycPrinceProps> = (props: IEkycP
       };
     
       // UAT url
-      //const _apiUrl = "https://uat.princepipes.com:567/api/CustomerKYC/updateSHPID";
+      const _apiUrl = "https://uat.princepipes.com:567/api/CustomerKYC/updateSHPID";
 
       // Production url
-      const _apiUrl = "https://travelservices.princepipes.com/imonwebapi-new/api/CustomerKYC/updateSHPID";
+      //const _apiUrl = "https://travelservices.princepipes.com/imonwebapi-new/api/CustomerKYC/updateSHPID";
     
       try {
         // Using HttpClient to send the POST request
@@ -828,10 +701,10 @@ export const ViewKYC: React.FunctionComponent<IEkycPrinceProps> = (props: IEkycP
       });
     
       // UAT url
-      //const _apiUrl = `https://uat.princepipes.com:446/wscustomerdetails.asmx/updateCustomerDetial?${params.toString()}`;
+      const _apiUrl = `https://uat.princepipes.com:446/wscustomerdetails.asmx/updateCustomerDetial?${params.toString()}`;
     
       // Production url
-      const _apiUrl = `https://travelservices.princepipes.com/wscustomerdetails.asmx/updateCustomerDetial?${params.toString()}`;
+      //const _apiUrl = `https://travelservices.princepipes.com/wscustomerdetails.asmx/updateCustomerDetial?${params.toString()}`;
 
       try {
         // Using HttpClient to send the GET request
