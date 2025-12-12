@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "ekyc-uat-all-modules-client-side-solution",
+    "id": "61f03316-3b34-4945-8dbd-a7ddd8e59923",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.21.1"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "EkycUatAllModules description"
+      },
+      "longDescription": {
+        "default": "EkycUatAllModules description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "ekyc-uat-all-modules Feature",
+        "description": "The feature that activates elements of the ekyc-uat-all-modules solution.",
+        "id": "df2193ae-cbb1-48c1-90ab-c3a1228a5413",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/ekyc-uat-all-modules.sppkg"
+  }
+}

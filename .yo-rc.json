@@ -1,0 +1,18 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "plusBeta": false,
+    "isCreatingSolution": false,
+    "nodeVersion": "22.21.1",
+    "sdksVersions": {},
+    "version": "1.21.1",
+    "libraryName": "ekyc-uat-all-modules",
+    "libraryId": "61f03316-3b34-4945-8dbd-a7ddd8e59923",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "EkycUatAllModules",
+    "solutionShortDescription": "EkycUatAllModules description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "webpart"
+  }
+}

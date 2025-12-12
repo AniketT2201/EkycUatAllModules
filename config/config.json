@@ -1,0 +1,46 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "ekyc-prince-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/ekycPrince/EkycPrinceWebPart.js",
+          "manifest": "./src/webparts/ekycPrince/EkycPrinceWebPart.manifest.json"
+        }
+      ]
+    },
+    "ekyc-trubore-uat-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/ekycTruboreUat/EkycTruboreUatWebPart.js",
+          "manifest": "./src/webparts/ekycTruboreUat/EkycTruboreUatWebPart.manifest.json"
+        }
+      ]
+    },
+    "ekyc-approval-prince-uat-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/ekycApprovalPrinceUat/EkycApprovalPrinceUatWebPart.js",
+          "manifest": "./src/webparts/ekycApprovalPrinceUat/EkycApprovalPrinceUatWebPart.manifest.json"
+        }
+      ]
+    },
+    "ekyc-approval-trubore-uat-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/ekycApprovalTruboreUat/EkycApprovalTruboreUatWebPart.js",
+          "manifest": "./src/webparts/ekycApprovalTruboreUat/EkycApprovalTruboreUatWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "EkycPrinceWebPartStrings": "lib/webparts/ekycPrince/loc/{locale}.js",
+    "ControlStrings": "node_modules/@pnp/spfx-controls-react/lib/loc/{locale}.js",
+    "EkycTruboreUatWebPartStrings": "lib/webparts/ekycTruboreUat/loc/{locale}.js",
+    "EkycApprovalPrinceUatWebPartStrings": "lib/webparts/ekycApprovalPrinceUat/loc/{locale}.js",
+    "EkycApprovalTruboreUatWebPartStrings": "lib/webparts/ekycApprovalTruboreUat/loc/{locale}.js"
+  }
+}
