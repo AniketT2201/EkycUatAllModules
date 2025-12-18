@@ -30,6 +30,7 @@ export interface IEKYC {
     StateHeadEmail?: string;
 
     httpClient?: HttpClient;
+    Remark?: any;
 }
 
 
@@ -111,6 +112,8 @@ export interface KYCData {
   Growth?: string;
   Growth1?: string;
   Growth2?: string;
+  newRemark?: string;
+  Attachment?: any;
 }
 
 export interface CustomerDetail {
