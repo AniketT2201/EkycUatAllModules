@@ -34,6 +34,7 @@ export interface IEKYC {
 
 
 export interface KYCData {
+  itemID: string;
   ID: string;
   "Firm Name": string;
   Cosnstituion: string;
@@ -111,6 +112,8 @@ export interface KYCData {
   Growth?: string;
   Growth1?: string;
   Growth2?: string;
+  newRemark?: string;
+  Attachment?: any;
 }
 
 export interface CustomerDetail {

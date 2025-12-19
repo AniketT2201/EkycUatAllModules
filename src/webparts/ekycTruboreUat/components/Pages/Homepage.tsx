@@ -97,7 +97,8 @@ export const Homepage: React.FunctionComponent<IEkycTruboreUatProps> = (props: I
   const [visible, setVisible] = useState(false);
   const [errors, setErrors] = useState({
     NationalHead: "",
-    StateHead: ""
+    StateHead: "",
+    ZonalHead: ""
   });
 
   const [formData, setFormData] = useState<IEKYC>({
@@ -724,7 +725,7 @@ const handleClose = async () => {
 };
 
 const validateForm = () => {
-  let newErrors = { NationalHead: "", StateHead: "" };
+  let newErrors = { NationalHead: "", StateHead: "", ZonalHead: "" };
   let isValid = true;
 
   if (!formData.NationalHeadEmail || formData.NationalHeadEmail.length === 0) {
@@ -732,10 +733,10 @@ const validateForm = () => {
     isValid = false;
   }
 
-  // if (!formData.ZonalHeadEmail || formData.ZonalHeadEmail.length === 0) {
-  //   newErrors.ZonalHead = "Zonal Head is required.";
-  //   isValid = false;
-  // }
+  if (!formData.ZonalHeadEmail || formData.ZonalHeadEmail.length === 0) {
+    newErrors.ZonalHead = "Zonal Head is required.";
+    isValid = false;
+  }
 
   if (!formData.StateHeadEmail || formData.StateHeadEmail.length === 0) {
     newErrors.StateHead = "State Head is required.";
@@ -1071,7 +1072,7 @@ const validateForm = () => {
                     {/* Zonal Head */}
                     <div className="form-group">
                       <label>Zonal Head*</label>
-                      {/* <PeoplePicker
+                      <PeoplePicker
                         context={{
                           absoluteUrl: props.currentSPContext.pageContext.web.absoluteUrl,  // ✅ no more undefined
                           spHttpClient: props.currentSPContext.spHttpClient,
@@ -1094,12 +1095,12 @@ const validateForm = () => {
                         <span style={{ color: "red", fontSize: 12 }}>
                           {errors.ZonalHead}
                         </span>
-                      )} */}
+                      )}
                     </div>
                     <div className="form-group">
                       <input
                         type="text"
-                        value="ka@princepipes.com"
+                        value={formData.ZonalHeadEmail || ""}
                         readOnly
                       />
                     </div>

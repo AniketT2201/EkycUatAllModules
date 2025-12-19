@@ -331,3 +331,156 @@
   font-size: 25px;
   cursor: pointer;
 }
+
+
+// History Modal CSS
+/* Overlay */
+.popup-overlay-history {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4); /* red-tinted overlay */
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 10vh;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Card */
+.popup-card-history {
+  width: 30%;
+  max-height: 75vh;
+  background: #fff;
+  border-radius: 12px;
+  overflow-y: auto;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.35);
+  display: flex;
+  flex-direction: column;
+  border-top: 6px solid #d32f2f; /* Red accent */
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Header */
+.popup-header-history {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  background: #fce4e4; /* Light red background */
+  border-bottom: 1px solid #f5c6c6;
+  font-weight: 600;
+  color: #b71c1c;
+  font-size: 16px;
+}
+
+.header-icon {
+  font-size: 20px;
+  margin-right: 8px;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #b71c1c;
+  transition: color 0.2s;
+}
+
+.close-btn:hover {
+  color: #f44336;
+}
+
+/* Body */
+.history-body {
+  padding: 16px 20px;
+  max-height: 65vh;
+  overflow-y: auto;
+}
+
+/* History Item */
+.history-item {
+  border-bottom: 1px solid #f5c6c6;
+  padding: 12px 0;
+}
+
+.history-item:last-child {
+  border-bottom: none;
+}
+
+.history-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #b71c1c;
+  margin-bottom: 6px;
+}
+
+.history-user, .history-date {
+  display: flex;
+  align-items: center;
+}
+
+.history-remark {
+  font-size: 14px;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.history-attachments a {
+  display: inline-block;
+  font-size: 13px;
+  margin-top: 4px;
+  color: #d32f2f;
+  text-decoration: none;
+  gap: 4px;
+}
+
+.history-attachments a:hover {
+  text-decoration: underline;
+}
+
+.loading-text, .no-history {
+  text-align: center;
+  color: #b71c1c;
+  font-style: italic;
+  margin-top: 20px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+// css for icon button
+.btn-view-history {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #d32f2f; /* Red background */
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  margin-top: 2rem;
+}
+
+.btn-view-history:hover {
+  background-color: #b71c1c;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+
+.btn-view-history:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}

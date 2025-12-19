@@ -35,6 +35,7 @@ export interface IEKYC {
 
 
 export interface KYCData {
+  itemID: string;
   ID: string;
   "Firm Name": string;
   Cosnstituion: string;

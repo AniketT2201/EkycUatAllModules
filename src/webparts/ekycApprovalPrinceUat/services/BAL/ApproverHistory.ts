@@ -1,4 +1,4 @@
-import { IEkycPrinceProps } from "../../components/IEkycPrinceProps";
+import { IEkycApprovalPrinceUatProps } from "../../components/IEkycApprovalPrinceUatProps";
 import SPCRUDOPS from '../DAL/spcrudops';
 import { IEKYC, KYCData } from '../interface/IEKYC';
 import { sp } from "@pnp/sp/presets/all";
@@ -7,17 +7,17 @@ import { IHistory } from "../interface/IHistory";
 
 
 export interface IDashboardOps {
-    getHistoryData(ekycId: number,props: IEkycPrinceProps): Promise<IHistory[]>;
-    insertHistoryData(item: KYCData, props: IEkycPrinceProps): Promise<any>;
-    getAttachments(listName: string, itemId: number, props: IEkycPrinceProps): Promise<any[]>;
-    uploadAttachment(listName: string, itemId: number, file: File, props: IEkycPrinceProps): Promise<any>;
+    getHistoryData(ekycId: number,props: IEkycApprovalPrinceUatProps): Promise<IHistory[]>;
+    insertHistoryData(item: KYCData, props: IEkycApprovalPrinceUatProps): Promise<any>;
+    getAttachments(listName: string, itemId: number, props: IEkycApprovalPrinceUatProps): Promise<any[]>;
+    uploadAttachment(listName: string, itemId: number, file: File, props: IEkycApprovalPrinceUatProps): Promise<any>;
 }
 
 
 export default function HistoryOps(): IDashboardOps {
     const spCrudOps = SPCRUDOPS();
 
-    const getHistoryData = async (ekycId: number, props: IEkycPrinceProps): Promise<IHistory[]> => {
+    const getHistoryData = async (ekycId: number, props: IEkycApprovalPrinceUatProps): Promise<IHistory[]> => {
         
         try {
             const spCrudOpsInstance = await spCrudOps;
@@ -30,7 +30,7 @@ export default function HistoryOps(): IDashboardOps {
 
             const results = await spCrudOpsInstance.getData(
                 "WorkflowHistory",
-                "*,Id,Created,Modified,Remark,Author/Id,Author/Title,AttachmentFiles,AttachmentFiles/ServerRelativeUrl,AttachmentFiles/FileName",
+                "*,Id,Created,Modified,Remark,Author/Id,Author/Title,AttachmentFiles",
                 "AttachmentFiles, Author",
                 filter,
                 { column: "Id", isAscending: false }, 
@@ -64,7 +64,7 @@ export default function HistoryOps(): IDashboardOps {
     };
 
 
-    const insertHistoryData = async (item: KYCData, props: IEkycPrinceProps): Promise<any> => {
+    const insertHistoryData = async (item: KYCData, props: IEkycApprovalPrinceUatProps): Promise<any> => {
         try {
             const spCrudOpsInstance = await spCrudOps;
             const result = await spCrudOpsInstance.insertData(
@@ -87,7 +87,7 @@ export default function HistoryOps(): IDashboardOps {
     const getAttachments = async (
         listName: string,
         itemId: number,
-        props: IEkycPrinceProps
+        props: IEkycApprovalPrinceUatProps
         ): Promise<{ name: string; url: string }[]> => {
         try {
             const spCrudOpsInstance = await spCrudOps;
@@ -104,7 +104,7 @@ export default function HistoryOps(): IDashboardOps {
         listName: string,
         itemId: number,
         file: File,
-        props: IEkycPrinceProps
+        props: IEkycApprovalPrinceUatProps
         ): Promise<void> => {
         try {
             const spCrudOpsInstance = await spCrudOps;

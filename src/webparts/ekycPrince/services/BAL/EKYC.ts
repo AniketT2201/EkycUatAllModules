@@ -41,8 +41,8 @@ export default function DashboardOps(): IDashboardOps {
 
             const results = await spCrudOpsInstance.getData(
                 "Ekyc",
-                "*,Id,Created,Modified,EmployeeCode,FirmName,Email,MobileNo,ApprovedBy,PipingSystem,NantionalHeadName,ZoneHeadName,StateHeadName,AttachmentFiles,SecurityCode",
-                "AttachmentFiles",
+                "*,Id,Created,Modified,EmployeeCode,FirmName,Email,MobileNo,ApprovedBy,PipingSystem,NantionalHeadName,ZoneHeadName,StateHeadName,AttachmentFiles,SecurityCode,Author/Id,Author/Title",
+                "AttachmentFiles,Author",
                 filter,
                 { column: "Id", isAscending: false }, 
                 props

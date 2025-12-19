@@ -196,6 +196,7 @@ export const ViewKYC: React.FunctionComponent<IEkycPrinceProps> = (props: IEkycP
 	  
 			setKycData({
 			  ...data,
+        itemID: itemID,
 			  ["Date of Birth"]: data["Date of Birth"] ? getFormatDate(data["Date of Birth"]) : "",
 			  ["Modified Datetime"]: getFormatDate(data["Modified Datetime"]),
 			});
@@ -229,7 +230,7 @@ export const ViewKYC: React.FunctionComponent<IEkycPrinceProps> = (props: IEkycP
 			  .split(",")
 			  .map((email: string) => email.trim());
 
-      //currentApproverList[0] = 'Sharepoint-admin@princepipes.com';
+      currentApproverList[0] = 'Sharepoint-admin@princepipes.com';
 	  
 			if (currentApproverList.includes(currentUserEmail)) {
 			  setIsCurrentApprover(true);
@@ -262,7 +263,7 @@ export const ViewKYC: React.FunctionComponent<IEkycPrinceProps> = (props: IEkycP
               save: true,
               secondaryPatch: true,
             });
-          } else if (kycStatus === 9) {
+          } else if (kycStatus === "9") {
             setShowButtons({
               approve: false,
               reject: false,
@@ -542,7 +543,8 @@ export const ViewKYC: React.FunctionComponent<IEkycPrinceProps> = (props: IEkycP
       try {
         // Using HttpClient to send the POST request
         await kycService.rejectCustomerKYCDetails(requestBody, _apiUrl);
-    
+        // Insert history record
+        await insertHistory(kycData);
         setShowRejectModal(false);
         Swal.fire('Success', 'KYC Rejected', 'success');
         histroy.push('/')
@@ -639,10 +641,9 @@ export const ViewKYC: React.FunctionComponent<IEkycPrinceProps> = (props: IEkycP
 
     // Insert Approvers data for using History 
     const insertHistory = async (kycData: any) => {
-      let itemId: number;
       const insertResult = await HistoryOps().insertHistoryData(kycData, props);
-      itemId = insertResult.data.Id;
-      await uploadFilesForId(itemId);
+      //itemId = insertResult;
+      await uploadFilesForId(insertResult);
     }
 
     // Helper: upload all pending newFiles for given item id------------------------------------>
@@ -686,7 +687,7 @@ export const ViewKYC: React.FunctionComponent<IEkycPrinceProps> = (props: IEkycP
     
           if (uploaded.length > 0) {
             console.log(`Uploaded: ${uploaded.join(', ')}`);
-            alert(`Successfully Uploaded: ${uploaded.join(', ')}.`);
+            alert(`Data Inserted and Successfully Uploaded: ${uploaded.join(', ')}.`);
           }
           if (skipped.length > 0) {
             console.log(`Skipped (already existed): ${skipped.join(', ')}`);
@@ -1668,7 +1669,7 @@ export const ViewKYC: React.FunctionComponent<IEkycPrinceProps> = (props: IEkycP
                             rel="noopener noreferrer"
                             className="file-link"
                           >
-                            📎 {file.FileName}
+                            📎️{file.FileName}
                           </a>
                         ))}
                       </div>

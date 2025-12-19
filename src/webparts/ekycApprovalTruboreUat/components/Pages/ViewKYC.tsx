@@ -22,6 +22,8 @@ import KycService from '../../utils/KycService';
 import axios from 'axios';
 import DashboardOps from '../../services/BAL/EKYC';
 import { useHistory } from 'react-router-dom';
+import { IHistory } from '../../../ekycApprovalPrinceUat/services/interface/IHistory';
+import HistoryOps from '../../services/BAL/ApproverHistory';
 
 
 SPComponentLoader.loadCss('https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css');
@@ -37,6 +39,9 @@ export const ViewKYC: React.FunctionComponent<IEkycApprovalTruboreUatProps> = (p
 	const [kycData, setKycData] = React.useState<any>(null);
   const histroy =useHistory();
   const kycRef = React.useRef<any>(null);
+  const [newFiles, setNewFiles] = useState<File[]>([]);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [attachments, setAttachments] = useState<{name: string, url: string}[]>([]);
 
   const kycService = new KycService(props.currentSPContext.httpClient);
   const [activeTab, setActiveTab] = useState("communication");
@@ -71,6 +76,11 @@ export const ViewKYC: React.FunctionComponent<IEkycApprovalTruboreUatProps> = (p
 	});
   const [rejectRemark, setRejectRemark] = useState<string>('');
   const [showRejectModal, setShowRejectModal] = useState<boolean>(false);
+  // Show / hide history popup
+  const [showHistoryModal, setShowHistoryModal] = React.useState(false);
+  const [history, setHistory] = React.useState<IHistory[]>([]);
+  const popupRef = React.useRef<HTMLDivElement>(null);
+  const [isLoadingHistory, setIsLoadingHistory] = React.useState(false);
   
 
   // Example validation errors (later you can replace with real logic)
@@ -157,131 +167,6 @@ export const ViewKYC: React.FunctionComponent<IEkycApprovalTruboreUatProps> = (p
       }
       return true;
     };
-	// const fetchKYCData = async () => {
-	// 	const { ID, itemID } = getUrlVars();
-	// 	// const ID = "76CA35C4149F401C910DA04CB901A4B2";
-	// 	// const itemID = "1867";
-	// 	setSecurityNo(ID);
-	// 	setItemId(itemID);
-
-	// 	const apiUrl = "https://uat.princepipes.com:567/api/CustomerKYC/getCustomerKYCDetails";
-	// 	const data ={ ActionID: "2", SecurityNo: ID }
-	// 	try {
-	// 		// if (!httpClient) {
-	// 		// 	console.error("HttpClient not available");
-	// 		// 	return;
-	// 		// }
-	// 		// // ✅ Similar to your getHttpData pattern
-	// 		// const response: HttpClientResponse = await httpClient.post(
-	// 		// 	apiUrl,
-	// 		// 	HttpClient.configurations.v1,
-	// 		// 	{
-	// 		// 		headers: {
-	// 		// 			"Content-Type": "application/json",
-	// 		// 			"Accept": "application/json",
-	// 		// 		},
-	// 		// 		body: JSON.stringify({ ActionID: "2", SecurityNo: ID }),
-	// 		// 	}
-	// 		// );
-	// 		//const responseData =(await SPCRUDOPS()).postHttpData(apiUrl,data,props)
-	// 		const response = await kycService.getCustomerKYCDetails(data,ID, itemID);
-
-	// 		    if (response.aMessage[0].Result === "100") {
-	// 		      setKycData(response.Table[0]); // store all data in state
-	// 		      console.log("KYC Response: ", response.Table[0]);
-	// 		    } else {
-	// 		      console.error("No data found!");
-	// 		    }
-
-	// 		let  responseData: KYCResponse =await (await SPCRUDOPS()).postHttpData(apiUrl,data,props);
-
-	// 		if (responseData?.aMessage?.[0]?.Result === "100") {
-	// 			const data = responseData.Table[0];
-
-	// 			// ✅ Set KYC data
-	// 			setKycData({
-	// 				...data,
-	// 				DateofBirth: data.DateofBirth ? getFormatDate(data.DateofBirth) : "",
-	// 				ModifiedDatetime: getFormatDate(data.ModifiedDatetime),
-	// 			});
-
-	// 			setCustomerDetails(responseData.Table5);
-	// 			setSalesDetails(responseData.Table4);
-	// 			setSalesByCategory(responseData.Table1);
-	// 			setCustomerSales(responseData.Table3);
-	// 			setEstimatedBusiness(responseData.Table2);
-
-	// 			// ✅ Calculate growth %
-	// 			const prevYear2 = parseFloat(data.GrowthPrecedingYear2) || 0;
-	// 			const prevYear1 = parseFloat(data.GrowthPrecedingYear1) || 0;
-	// 			const lastYear = parseFloat(data.GrowthLastYear) || 0;
-
-	// 			const growth1 = prevYear2 ? ((prevYear1 / prevYear2 - 1) * 100).toFixed(2) : "0";
-	// 			const growth2 = prevYear1 ? ((lastYear / prevYear1 - 1) * 100).toFixed(2) : "0";
-
-	// 			setKycData((prev: any) =>
-	// 				prev
-	// 					? {
-	// 							...prev,
-	// 							Growth: "0",
-	// 							Growth1: growth1,
-	// 							Growth2: growth2,
-	// 						}
-	// 					: prev
-	// 			);
-
-	// 			// ✅ Check current approver & set permissions
-	// 			const currentApproverList = data.CurrentApprover.toLowerCase().split(",").map((email: string) => email.trim());
-	// 			if (currentApproverList.includes(currentUserEmail)) {
-	// 				setIsCurrentApprover(true);
-	// 				setShowButtons({
-	// 					approve: !["7", "8", "9"].includes(data["New KYC Status"]),
-	// 					reject: !["7", "8", "9"].includes(data["New KYC Status"]),
-	// 					update: !["7", "8", "9"].includes(data["New KYC Status"]),
-	// 					navision: data["New KYC Status"] === "7",
-	// 					save: ["7", "8"].includes(data["New KYC Status"]),
-	// 					secondaryPatch: data["New KYC Status"] === "8",
-	// 				});
-	// 			}
-	// 		} else {
-	// 			Swal.fire({
-	// 				icon: "warning",
-	// 				title: "No Data Found",
-	// 				text: "No KYC data was found for this Security Number.",
-	// 			});
-	// 		}
-	// 	} catch (error) {
-	// 		console.error("Error fetching KYC data:", error);
-
-	// 		if (error instanceof Error) {
-	// 			if (error.message.includes("timed out")) {
-	// 				Swal.fire({
-	// 					icon: "error",
-	// 					title: "Request Timeout",
-	// 					text: "The KYC API request timed out. Please try again or contact the administrator.",
-	// 				});
-	// 			} else if (error.message.includes("Failed to fetch")) {
-	// 				Swal.fire({
-	// 					icon: "error",
-	// 					title: "Network Error",
-	// 					text: "Failed to connect to the KYC API. Please check your network or contact the administrator.",
-	// 				});
-	// 			} else {
-	// 				Swal.fire({
-	// 					icon: "error",
-	// 					title: "Error",
-	// 					text: `Failed to fetch KYC data: ${error.message}`,
-	// 				});
-	// 			}
-	// 		} else {
-	// 			Swal.fire({
-	// 				icon: "error",
-	// 				title: "Error",
-	// 				text: "An unexpected error occurred.",
-	// 			});
-	// 		}
-	// 	}
-	// };
 	
 
 	const fetchKYCData = async () => {
@@ -312,6 +197,7 @@ export const ViewKYC: React.FunctionComponent<IEkycApprovalTruboreUatProps> = (p
 	  
 			setKycData({
 			  ...data,
+        itemID: itemID,
 			  ["Date of Birth"]: data["Date of Birth"] ? getFormatDate(data["Date of Birth"]) : "",
 			  ["Modified Datetime"]: getFormatDate(data["Modified Datetime"]),
 			});
@@ -345,7 +231,7 @@ export const ViewKYC: React.FunctionComponent<IEkycApprovalTruboreUatProps> = (p
 			  .split(",")
 			  .map((email: string) => email.trim());
 
-      //currentApproverList[0] = 'Sharepoint-admin@princepipes.com';
+      currentApproverList[0] = 'Sharepoint-admin@princepipes.com';
 	  
 			if (currentApproverList.includes(currentUserEmail)) {
 			  setIsCurrentApprover(true);
@@ -423,7 +309,7 @@ export const ViewKYC: React.FunctionComponent<IEkycApprovalTruboreUatProps> = (p
               save: true,
               secondaryPatch: true,
             });
-          } else if (kycStatus === 9) {
+          } else if (kycStatus === "9") {
             setShowButtons({
               approve: false,
               reject: false,
@@ -706,7 +592,8 @@ export const ViewKYC: React.FunctionComponent<IEkycApprovalTruboreUatProps> = (p
       try {
         // Using HttpClient to send the POST request
         await kycService.rejectCustomerKYCDetails(requestBody, _apiUrl);
-    
+        // Insert history record
+        await insertHistory(kycData);
         setShowRejectModal(false);
         Swal.fire('Success', 'KYC Rejected', 'success');
         histroy.push('/')
@@ -794,11 +681,76 @@ export const ViewKYC: React.FunctionComponent<IEkycApprovalTruboreUatProps> = (p
         },
         props
         );
+        // Insert history record
+        await insertHistory(kycData);
         console.log('Pending status updated');
       } catch (error) {
         console.error('Error updating pending status:', error);
       }
     };
+
+    // Insert Approvers data for using History 
+    const insertHistory = async (kycData: any) => {
+      const insertResult = await HistoryOps().insertHistoryData(kycData, props);
+      //itemId = insertResult;
+      await uploadFilesForId(insertResult);
+    }
+
+    // Helper: upload all pending newFiles for given item id------------------------------------>
+    const uploadFilesForId = async (itemId: number) => {
+        if (newFiles.length === 0) return;
+    
+        try {
+          // get existing names to avoid duplicates (case-insensitive)
+          const existingFileNames = attachments
+            .filter(a => a && a.name)
+            .map(a => a.name.toLowerCase());
+    
+          const uploaded: string[] = [];
+          const skipped: string[] = [];
+    
+    
+          for (const f of newFiles) {
+            if (!(f instanceof File)) continue; // guard
+            if (existingFileNames.includes(f.name.toLowerCase())) {
+              // skip duplicates to avoid SharePoint error
+              skipped.push(f.name);
+              continue;
+            }
+            await HistoryOps().uploadAttachment("WorkflowHistory", itemId, f, props);
+            uploaded.push(f.name);
+          }
+    
+    
+          // Refresh attachments
+          //await loadAttachments(itemId);
+    
+    
+          // Clear pending files that were uploaded
+          setNewFiles([]);
+    
+    
+          // Clear file input element if present
+          const input = document.getElementById("fileUpload") as HTMLInputElement | null;
+          if (input) input.value = "";
+    
+    
+          if (uploaded.length > 0) {
+            console.log(`Uploaded: ${uploaded.join(', ')}`);
+            alert(`Data Inserted and Successfully Uploaded: ${uploaded.join(', ')}.`);
+          }
+          if (skipped.length > 0) {
+            console.log(`Skipped (already existed): ${skipped.join(', ')}`);
+          }
+    
+    
+        } catch (err) {
+          console.error("Error uploading files:", err);
+          throw err; // Rethrow to handle in submit
+        } finally {
+          
+        }
+      };
   
     // Create in Navision
     const createInNavision = async () => {
@@ -868,10 +820,33 @@ export const ViewKYC: React.FunctionComponent<IEkycApprovalTruboreUatProps> = (p
       }
     };
     
-  
+    //for clearning input field of an attachment section
+    const handleRemoveFile = (idx: number) => {
+      setNewFiles((prev) => {
+        const updated = prev.filter((_, i) => i !== idx);
+
+        // 🔑 rebuild FileList using DataTransfer
+        if (fileInputRef.current) {
+          const dt = new DataTransfer();
+          updated.forEach((file) => dt.items.add(file));
+          fileInputRef.current.files = dt.files;
+        }
+
+        return updated;
+      });
+    };
+    const handleHistoryOpen = async () => {
+      setShowHistoryModal(true);
+      const data = await HistoryOps().getHistoryData(itemID as any, props);
+      setHistory(data);
+    };
+
+    const handleHistoryClose = () => {
+      setShowHistoryModal(false);
+    };
 	  
   return (
-    <div className={`form-wrapper fade-in ${visible ? 'visible' : ''}`}>
+    <div className={`form-wrapper`}>
 			{/* Tabs */}
 			<div className='tabsContainer'>
 				<div className="tabs">
@@ -892,7 +867,7 @@ export const ViewKYC: React.FunctionComponent<IEkycApprovalTruboreUatProps> = (p
 
 
       {/* Form Body */}
-      <div className={`form-container fade-in ${visible ? 'visible' : ''}`} style={{ transitionDelay: '0.8s'}}>
+      <div className={`form-container`}>
         {activeTab === "communication" && (
           <form className="custom-form">
             {/* Row 1 */}
@@ -1546,6 +1521,66 @@ export const ViewKYC: React.FunctionComponent<IEkycApprovalTruboreUatProps> = (p
                 <input type="text" readOnly value={kycData?.CustomerCode || ''}/>
               </div>
             </div>
+            <div className="row">
+              {/* Attachments section */}
+              <div className="field">
+                <label>Attachments</label>
+                <div className="form-group">
+                  { (
+                    <>
+                      {/* File Upload */}
+                      <input
+                        type="file"
+                        id="fileUpload"
+                        multiple
+                        ref={fileInputRef}
+                        onChange={(e) =>
+                          setNewFiles(e.target.files ? Array.from(e.target.files) : [])
+                        }
+                        
+                      />
+                      {/* New Files Preview */}
+                      {newFiles.length > 0 && (
+                        <div className="new-files">
+                          {newFiles.map((file, idx) => (
+                            <div key={idx} className="file-chip">
+                              <span className="file-name">{file.name}</span>
+                              <button
+                                type="button"
+                                className="remove-btn"
+                                onClick={() => handleRemoveFile(idx)}
+                              >
+                                ✖
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
+              </div>
+              <div className="field">
+                <label>Remarks</label>
+                <textarea
+                  value={kycData?.newRemark || ""}
+                  onChange={(e) => setKycData({ ...kycData, newRemark: e.target.value })}
+              
+                />
+              </div>
+              <div className="field">
+                <button
+                  type="button"
+                  className="btn-view-history"
+                  onClick={() => handleHistoryOpen()}
+                  title="View Approval History"
+                >
+                  🛈 View History
+                </button>
+
+
+              </div>
+            </div>
 						<div className="declaration">
 							<input type="checkbox" checked={true} disabled={true}></input>
 							<label>
@@ -1644,6 +1679,60 @@ export const ViewKYC: React.FunctionComponent<IEkycApprovalTruboreUatProps> = (p
 					</form>
 				)}
       </div>
+      {showHistoryModal && (
+        <div className="popup-overlay-history">
+          <div className="popup-card-history" ref={popupRef}>
+
+            {/* Header */}
+            <div className="popup-header-history">
+              <span className="header-icon">📜</span>
+              <h3>Approval History</h3>
+              <button className="close-btn" onClick={handleHistoryClose}>✖</button>
+            </div>
+
+            {/* Body */}
+            <div className="history-body">
+              {isLoadingHistory ? (
+                <p className="loading-text">Loading...</p>
+              ) : history.length === 0 ? (
+                <p className="no-history">No history available.</p>
+              ) : (
+                history.map((item, idx) => (
+                  <div key={idx} className="history-item">
+
+                    <div className="history-meta">
+                      <span className="history-user">👤 {item.Author}</span>
+                      <span className="history-date">📅 {new Date(item.Created as any).toLocaleString()}</span>
+                    </div>
+
+                    <div className="history-remark">
+                      📝 {item.newRemark as any}
+                    </div>
+
+                    {(item.Attachment as any)?.length > 0 && (
+                      <div className="history-attachments">
+                        {(item.Attachment as any).map((file: any, fIdx: number) => (
+                          <a
+                            key={fIdx}
+                            href={file.ServerRelativeUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="file-link"
+                          >
+                            📎️{file.FileName}
+                          </a>
+                        ))}
+                      </div>
+                    )}
+
+                  </div>
+                ))
+              )}
+            </div>
+
+          </div>
+        </div>
+      )}
     </div>
   );
 
