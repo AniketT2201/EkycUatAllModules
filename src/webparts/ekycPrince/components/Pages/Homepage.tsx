@@ -545,10 +545,10 @@ const columnsConfig = [
         };
         setFormData(updatedData);
         handleSubmit(updatedData);
+      } else {
+        alert("Email Already Exist..");
       }
-  
     } catch (error) {
-      alert("Email Already Exist..");
       console.error("Email Already Exist..", error);
       
     } finally {
@@ -1239,7 +1239,7 @@ const validateForm = () => {
                     readOnly={isViewMode}
                     disabled={isViewMode}
                     required
-                    pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                    //pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="Enter a valid email (no consecutive dots, must start with a letter/number, valid domain and TLD)"
                   />
                 </div>

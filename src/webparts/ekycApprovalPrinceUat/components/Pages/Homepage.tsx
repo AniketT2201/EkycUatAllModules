@@ -681,22 +681,54 @@ const handleClose = async () => {
 };
 
 const validateForm = () => {
-  let newErrors = { NationalHead: "", ZonalHead: "", StateHead: "" };
+  let newErrors = { NationalHead: "", ZonalHead: "", StateHead: "", MobileNo: "", Email: "", Name: "" };
   let isValid = true;
 
+  // ✅ National Head validation
   if (!formData.NationalHeadEmail || formData.NationalHeadEmail.length === 0) {
     newErrors.NationalHead = "National Head is required.";
     isValid = false;
   }
 
+  // ✅ Zonal Head validation
   if (!formData.ZonalHeadEmail || formData.ZonalHeadEmail.length === 0) {
     newErrors.ZonalHead = "Zonal Head is required.";
     isValid = false;
   }
 
+  // ✅ State Head validation
   if (!formData.StateHeadEmail || formData.StateHeadEmail.length === 0) {
     newErrors.StateHead = "State Head is required.";
     isValid = false;
+  }
+
+  // ✅ Firm Name validation
+  if (!formData.FirmName || formData.FirmName.trim() === "") {
+    newErrors.Name = "Firm Name is required.";
+    isValid = false;
+  }
+
+  // ✅ Email validation
+  const emailRegex = /^(?!.*\.\.)[a-zA-Z0-9][a-zA-Z0-9._%+-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  if (!formData.Email) {
+    newErrors.Email = "Email is required.";
+    isValid = false;
+  } else if (!emailRegex.test(formData.Email)) {
+    newErrors.Email = "Enter a valid email address.";
+    isValid = false;
+  }
+
+  // ✅ Mobile number validation
+  if (!formData.MobileNo) {
+    newErrors.MobileNo = "Mobile number is required.";
+    isValid = false;
+  } else {
+    const isMobileValid = /^(?:[6-9][0-9]{9}|\+91[6-9][0-9]{9})$/.test(formData.MobileNo);
+
+    if (!isMobileValid) {
+      newErrors.MobileNo = "Enter valid mobile number (10 digits or +91XXXXXXXXXX starting with 6–9).";
+      isValid = false;
+    }
   }
 
   setErrors(newErrors);
@@ -1108,26 +1140,42 @@ const validateForm = () => {
                     type="text"
                     value={formData.MobileNo || ""}
                     onChange={(e) => {
-                      const value = e.target.value;
-                      // Allow only numbers, +, -, space (up to 13 chars)
-                      if (/^[0-9+\s-]{0,13}$/.test(value)) {
-                        setFormData({ ...formData, MobileNo: value });
+                      let value = e.target.value;
+
+                      // Allow only digits and +
+                      if (!/^[0-9+]*$/.test(value)) return;
+
+                      // Allow + only at the beginning
+                      if (value.includes("+") && !value.startsWith("+")) return;
+
+                      // If starts with +, allow only +91 prefix (partial allowed)
+                      if (value.startsWith("+") && !"+91".startsWith(value.replace(/\d/g, "")) && !value.startsWith("+91")) {
+                        return;
                       }
+
+                      // Length control:
+                      // 10 digits normally, 13 if starts with +91
+                      if (
+                        (!value.startsWith("+") && value.length > 10) ||
+                        (value.startsWith("+91") && value.length > 13) 
+                      ) {
+                        return;
+                      }
+
+                      setFormData({ ...formData, MobileNo: value });
                     }}
+                    pattern="^(?:[6-9][0-9]{9}|\+91[6-9][0-9]{9})$"
+                    title="Enter valid mobile number (10 digits or +91XXXXXXXXXX starting with 6–9)"
+                    required
                     readOnly={isViewMode}
                     disabled={isViewMode}
-                    required
-                    pattern="^(?:\+91[ -]?[1-9]\d{9}|0[1-9]\d{9}|[1-9]\d{9})$"
-                    title="Enter valid mobile number: 
-                    9876543210, 09876543210, or +91 9876543210"
                   />
                 </div>
-
                 {/* Inline error */}
                 {formData.MobileNo &&
-                !/^(?:\+91[ -]?[1-9]\d{9}|0[1-9]\d{9}|[1-9]\d{9})$/.test(formData.MobileNo) && (
+                !/^(?:[6-9][0-9]{9}|\+91[6-9][0-9]{9})$/.test(formData.MobileNo) && (
                   <span style={{ color: "red", fontSize: "12px" }}>
-                    Please enter a valid mobile number (10-digit, 0 + 10-digit, or +91 + 10-digit).
+                    Enter valid mobile number (10 digits or +91XXXXXXXXXX starting with 6–9).
                   </span>
                 )}
 
@@ -1142,14 +1190,14 @@ const validateForm = () => {
                     readOnly={isViewMode}
                     disabled={isViewMode}
                     required
-                    pattern="^(?!.*\.\.)[a-zA-Z0-9][a-zA-Z0-9._%+-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                    pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="Enter a valid email (no consecutive dots, must start with a letter/number, valid domain and TLD)"
                   />
                 </div>
 
                 {/* Inline Email Error */}
                 {formData.Email &&
-                  !/^(?!.*\.\.)[a-zA-Z0-9][a-zA-Z0-9._%+-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.Email) && (
+                  !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.Email) && (
                     <span style={{ color: "red", fontSize: "12px" }}>
                       Please enter a valid email address (example: user@example.com, no double dots, must start with a letter/number).
                     </span>
