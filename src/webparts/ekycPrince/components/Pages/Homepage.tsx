@@ -53,7 +53,7 @@ export const Homepage: React.FunctionComponent<IEkycPrinceProps> = (props: IEkyc
   //const [data, setData] = useState<ITopNavigation[]>([]);
   const [loading, setLoading] = useState(false);
   const kycService = new KycService(props.currentSPContext.httpClient);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [groupedData, setGroupedData] = useState<Record<string, ITopNavigation[]>>({});
   const [topMenuData, setTopMenuData] = useState<NavigationItem[]>([]);
   const [DashboardData, setDashboardData] = useState<IEKYC[]>([]);
@@ -533,7 +533,7 @@ const columnsConfig = [
         StateHead: formData.StateHeadEmail?.toLowerCase() ?? "",
         ZoneHead: formData.ZonalHeadEmail?.toLowerCase() ?? ""
       };
-    setLoading(true);
+    setIsLoading(true);
     try {
       const response = await kycService.getCustomerKYCDetails(requestBody,_apiUrl);
     
@@ -552,7 +552,7 @@ const columnsConfig = [
       console.error("Email Already Exist..", error);
       
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   }
 
@@ -571,7 +571,7 @@ const columnsConfig = [
 
       //await uploadFilesForId(itemId);
 
-      alert(isEditMode ? "Request updated successfully!" : "Document Renewal Request submitted successfully!");
+      alert("New E-KYC request submitted successfully");
 
       // Reset form + close popup
       setFormData(initialFormState);

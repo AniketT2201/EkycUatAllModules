@@ -1608,14 +1608,14 @@ export const ViewKYC: React.FunctionComponent<IEkycApprovalTruboreUatProps> = (p
                 </label>
               </div>
             )}
-            {showButtons.reject1 && (
+            {/* {showButtons.reject1 && (
               <button type='button' className='btn btn-red' onClick={() => setRejectRemark("")}>
                 Reject1
               </button>
-            )}
+            )} */}
 
             {showButtons.navision && (
-              <button type="button" className="btn btn-green" onClick={createInNavision}>
+              <button type="button" className="btns btns-green" onClick={createInNavision}>
                 Create In Navision
               </button>
             )} 
@@ -1623,25 +1623,25 @@ export const ViewKYC: React.FunctionComponent<IEkycApprovalTruboreUatProps> = (p
             {isCurrentApprover && (
               <div className="buttonrows">
                 {showButtons.update && (
-                  <button type="button" className="btn btn-blue" onClick={updateKyc}>
+                  <button type="button" className="btns btns-blue" onClick={updateKyc}>
                     Update
                   </button>
                 )} 
 
                 {showButtons.approve && (
-                  <button type="button" className="btn btn-green" onClick={approveKyc}>
+                  <button type="button" className="btns btns-green" onClick={approveKyc}>
                     Approve
                   </button>
                 )}
 
                 {showButtons.reject && (
-                  <button type="button" className="btn btn-red" onClick={() => setShowRejectModal(true)}>
+                  <button type="button" className="btns btns-red" onClick={() => setShowRejectModal(true)}>
                     Reject
                   </button>
                 )} 
 
                 {showButtons.save && (
-                  <button type="button" className="btn btn-green" onClick={updateKyc}>
+                  <button type="button" className="btns btns-green" onClick={updateKyc}>
                     Submit
                   </button>
                )}
@@ -1666,7 +1666,7 @@ export const ViewKYC: React.FunctionComponent<IEkycApprovalTruboreUatProps> = (p
 
                   <button
                     type="button"
-                    className="btn btn-red mt-3"
+                    className="btns btns-red mt-3"
                     onClick={rejectKyc}
                   >
                     Reject

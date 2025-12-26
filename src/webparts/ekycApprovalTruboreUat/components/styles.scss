@@ -2258,7 +2258,7 @@ h3 {
 /* ---------------------------------------------------- */
 /*  Modern Buttons                                       */
 /* ---------------------------------------------------- */
-.btn {
+.btns {
   padding: 8px 16px;
   border-radius: 6px;
   font-size: 15px;
@@ -2272,7 +2272,7 @@ h3 {
   overflow: hidden;
 }
 
-.btn::after {
+.btns::after {
   content: "";
   position: absolute;
   top: 0;
@@ -2284,20 +2284,20 @@ h3 {
   transition: 0.4s ease;
 }
 
-.btn:hover::after {
+.btns:hover::after {
   left: 150%;
 }
 
-.btn:hover {
+.btns:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 18px rgba(0,0,0,0.18);
 }
 
-.btn:active {
+.btns:active {
   transform: translateY(0px) scale(0.97);
 }
 
-.btn:active::after {
+.btns:active::after {
   content: "";
   position: absolute;
   width: 200%;
@@ -2316,24 +2316,24 @@ h3 {
 }
 
 /* Button themes - Gradient Modern UI */
-.btn-green {
+.btns-green {
   background: linear-gradient(135deg, #16a34a, #22c55e);
 }
-.btn-green:hover {
+.btns-green:hover {
   background: linear-gradient(135deg, #15803d, #16a34a);
 }
 
-.btn-blue {
+.btns-blue {
   background: linear-gradient(135deg, #2563eb, #3b82f6);
 }
-.btn-blue:hover {
+.btns-blue:hover {
   background: linear-gradient(135deg, #1d4ed8, #2563eb);
 }
 
-.btn-red {
+.btns-red {
   background: linear-gradient(135deg, #dc2626, #ef4444);
 }
-.btn-red:hover {
+.btns-red:hover {
   background: linear-gradient(135deg, #b91c1c, #dc2626);
 }
 

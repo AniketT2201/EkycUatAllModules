@@ -534,7 +534,7 @@ const columnsConfig = [
         ZoneHead: formData.ZonalHeadEmail?.toLowerCase() ?? "",
         SystemName: "Trubore"
       };
-    setLoading(true);
+    setIsLoading(true);
     try {
       const response = await kycService.getCustomerKYCDetails(requestBody,_apiUrl);
     
@@ -554,7 +554,7 @@ const columnsConfig = [
       console.error("Email Already Exist..", error);
       
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   }
 
@@ -573,7 +573,7 @@ const columnsConfig = [
 
       //await uploadFilesForId(itemId);
 
-      alert(isEditMode ? "Request updated successfully!" : "Document Renewal Request submitted successfully!");
+      alert("New E-KYC request submitted successfully");
 
       // Reset form + close popup
       setFormData(initialFormState);
