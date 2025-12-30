@@ -29,6 +29,7 @@ import html2canvas from 'html2canvas';
 import { Search24Regular } from "@fluentui/react-icons";
 import { Parallax } from 'react-scroll-parallax';
 import KycService from '../../utils/KycService';
+import Swal from 'sweetalert2';
 
 // Load Bootstrap + FontAwesome
 SPComponentLoader.loadCss('https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css');
@@ -516,6 +517,10 @@ const columnsConfig = [
   }
 };
 
+  const errorPopup = (title: string, text: string) => {
+      Swal.fire({ icon: "error", title, text });
+  };
+
    const handleFetchSecutiryCode = async () => {
     // UAT url
     const _apiUrl = "https://uat.princepipes.com:567/api/TruboreCustomerKYC/sendKYCRequest";
@@ -534,10 +539,11 @@ const columnsConfig = [
         ZoneHead: formData.ZonalHeadEmail?.toLowerCase() ?? "",
         SystemName: "Trubore"
       };
-    setIsLoading(true);
+    setLoading(true);
     try {
       const response = await kycService.getCustomerKYCDetails(requestBody,_apiUrl);
-    
+      const messages = response?.aMessage?.[0]?.Description; 
+
       if (response?.aMessage?.[0]?.Result === "100") {
         const data = response.Table[0];
         const updatedData = {
@@ -547,14 +553,22 @@ const columnsConfig = [
         setFormData(updatedData);
         handleSubmit(updatedData);
       } else {
-        alert("Email Already Exist..");
+        alert(messages);
       }
   
     } catch (error) {
       console.error("Email Already Exist..", error);
+
+      if (error.message?.includes("timed out")) {
+			errorPopup("Request Timeout", "The UAT API request timed out.");
+		  } else if (error.message?.includes("Failed to fetch")) {
+			errorPopup("Network Error", "Failed to connect to the UAT API.");
+		  } else {
+			errorPopup("Error", `Failed to Connect UAT API: ${error.message}`);
+		  }
       
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   }
 

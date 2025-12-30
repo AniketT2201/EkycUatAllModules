@@ -13,8 +13,8 @@ import { EstimatedBusiness } from '../../services/interface/IEKYC';
 import { KYCResponse } from '../../services/interface/IEKYC';
 import { HttpClient, HttpClientResponse } from '@microsoft/sp-http';
 import Swal from 'sweetalert2';
-import '../ViewKYC.scss';
 import '../styles.scss';
+import '../ViewKYC.scss';
 import { WebPartContext } from '@microsoft/sp-webpart-base';
 import { SPComponentLoader } from '@microsoft/sp-loader';
 import SPCRUDOPS from '../../services/DAL/spcrudops';
@@ -230,7 +230,7 @@ export const ViewKYC: React.FunctionComponent<IEkycPrinceProps> = (props: IEkycP
 			  .split(",")
 			  .map((email: string) => email.trim());
 
-      currentApproverList[0] = 'Sharepoint-admin@princepipes.com';
+      //currentApproverList[0] = 'Sharepoint-admin@princepipes.com';
 	  
 			if (currentApproverList.includes(currentUserEmail)) {
 			  setIsCurrentApprover(true);
@@ -263,7 +263,7 @@ export const ViewKYC: React.FunctionComponent<IEkycPrinceProps> = (props: IEkycP
               save: true,
               secondaryPatch: true,
             });
-          } else if (kycStatus === "9") {
+          } else if (kycStatus === 9) {
             setShowButtons({
               approve: false,
               reject: false,

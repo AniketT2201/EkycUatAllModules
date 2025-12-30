@@ -231,7 +231,7 @@ export const ViewKYC: React.FunctionComponent<IEkycApprovalTruboreUatProps> = (p
 			  .split(",")
 			  .map((email: string) => email.trim());
 
-      currentApproverList[0] = 'Sharepoint-admin@princepipes.com';
+      //currentApproverList[0] = 'Sharepoint-admin@princepipes.com';
 	  
 			if (currentApproverList.includes(currentUserEmail)) {
 			  setIsCurrentApprover(true);
@@ -309,7 +309,7 @@ export const ViewKYC: React.FunctionComponent<IEkycApprovalTruboreUatProps> = (p
               save: true,
               secondaryPatch: true,
             });
-          } else if (kycStatus === "9") {
+          } else if (kycStatus === 9) {
             setShowButtons({
               approve: false,
               reject: false,
