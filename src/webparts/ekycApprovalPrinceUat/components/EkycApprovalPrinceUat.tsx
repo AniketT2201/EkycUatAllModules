@@ -8,7 +8,10 @@ import Loader from './Pages/Loader';
 import { SPComponentLoader } from '@microsoft/sp-loader';
 import { ParallaxProvider } from 'react-scroll-parallax';
 import { useHistory } from 'react-router-dom';
-
+import { Homepage } from './Pages/Homepage';
+import { ViewKYC } from './Pages/ViewKYC';
+import { Viewpage } from './Pages/Viewpage';
+import { DispForm } from './Pages/DispForm';
 
 SPComponentLoader.loadCss('https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css');
 SPComponentLoader.loadCss('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
@@ -17,18 +20,18 @@ SPComponentLoader.loadCss('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4
 
 
 // 💤 Lazy loaded components
-const Homepage = React.lazy(() =>
-  import('./Pages/Homepage').then(module => ({ default: module.Homepage }))
-);
-const ViewKYC = React.lazy(() =>
-  import('./Pages/ViewKYC').then(module => ({ default: module.ViewKYC }))
-);
-const Viewpage = React.lazy(() =>
-  import('./Pages/Viewpage').then(module => ({ default: module.Viewpage }))
-);
-const DispForm = React.lazy(() =>
-  import('./Pages/DispForm').then(module => ({ default: module.DispForm }))
-);
+// const Homepage = React.lazy(() =>
+//   import('./Pages/Homepage').then(module => ({ default: module.Homepage }))
+// );
+// const ViewKYC = React.lazy(() =>
+//   import('./Pages/ViewKYC').then(module => ({ default: module.ViewKYC }))
+// );
+// const Viewpage = React.lazy(() =>
+//   import('./Pages/Viewpage').then(module => ({ default: module.Viewpage }))
+// );
+// const DispForm = React.lazy(() =>
+//   import('./Pages/DispForm').then(module => ({ default: module.DispForm }))
+// );
 
 export default class EkycApprovalPrinceUat extends React.Component<IEkycApprovalPrinceUatProps> {
   public render(): React.ReactElement<IEkycApprovalPrinceUatProps> {

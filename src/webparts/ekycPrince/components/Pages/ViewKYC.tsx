@@ -85,6 +85,7 @@ export const ViewKYC: React.FunctionComponent<IEkycPrinceProps> = (props: IEkycP
   const [history, setHistory] = React.useState<IHistory[]>([]);
   const popupRef = React.useRef<HTMLDivElement>(null);
   const [isLoadingHistory, setIsLoadingHistory] = React.useState(false);
+  const [loading, setLoading] = useState(false);
 
   
 
@@ -230,9 +231,9 @@ export const ViewKYC: React.FunctionComponent<IEkycPrinceProps> = (props: IEkycP
 			  .split(",")
 			  .map((email: string) => email.trim());
 
-      //currentApproverList[0] = 'Sharepoint-admin@princepipes.com';
+      //currentApproverList[0] = 'sharepoint-admin@princepipes.com';
 	  
-			if (currentApproverList.includes(currentUserEmail)) {
+			if (currentApproverList.includes(currentUserEmail.toLowerCase())) {
 			  setIsCurrentApprover(true);
 			  // setShowButtons({
 				// approve: !["7", "8", "9"].includes(data["KYC Status"]),
@@ -307,7 +308,7 @@ export const ViewKYC: React.FunctionComponent<IEkycPrinceProps> = (props: IEkycP
 			errorPopup("Error", `Failed to fetch KYC data: ${error.message}`);
 		  }
 		}
-	  };
+	};
 	  
 	  const errorPopup = (title: string, text: string) => {
 		Swal.fire({ icon: "error", title, text });
@@ -374,15 +375,11 @@ export const ViewKYC: React.FunctionComponent<IEkycPrinceProps> = (props: IEkycP
     };
     
     //currently not in working
-    const handleSubmit = async (event: Event) => {
-      event.preventDefault(); // Prevents default behavior (like page reload)
     
-      // Your logic here
-      await updateKyc;
-    };
     
     // Update KYC
     const updateKyc = async () => {
+      setLoading(true);
 
       const data = kycRef.current;
  
@@ -472,16 +469,19 @@ export const ViewKYC: React.FunctionComponent<IEkycPrinceProps> = (props: IEkycP
     
       try {
         // Using HttpClient to send the POST request
-        await kycService.updateCustomerKYCDetails(requestBody, _apiUrl);
+        const response = await kycService.updateCustomerKYCDetails(requestBody, _apiUrl);
     
         await updateListItem();
         Swal.fire('Updated!', 'KYC Details Updated successfully', 'success');
-        histroy.push('/')
+        
 
       } catch (error) {
         console.error('Error updating KYC:', error);
     
         Swal.fire('Error', `Failed to update KYC: ${error.message}`, 'error');
+      } finally {
+        setLoading(false);
+        histroy.push('/');
       }
     };
     
@@ -489,7 +489,7 @@ export const ViewKYC: React.FunctionComponent<IEkycPrinceProps> = (props: IEkycP
     // Approve KYC
     const approveKyc = async () => {
       if (!kycData) return;
-    
+      setLoading(true);
       const requestBody = {
         ActionID: '6',
         ModifiedBy: 'XYZ', // Replace with actual user ID if necessary
@@ -511,11 +511,14 @@ export const ViewKYC: React.FunctionComponent<IEkycPrinceProps> = (props: IEkycP
         await updateSHPID();
         await updatePending();
         Swal.fire('Success', 'Send For Approval', 'success');
-        histroy.push('/')
+        
       } catch (error) {
         console.error('Error approving KYC:', error);
     
         Swal.fire('Error', `Failed to approve KYC: ${error.message}`, 'error');
+      } finally {
+        setLoading(false);
+        histroy.push('/');
       }
     };
     
@@ -523,7 +526,7 @@ export const ViewKYC: React.FunctionComponent<IEkycPrinceProps> = (props: IEkycP
     // Reject KYC
     const rejectKyc = async () => {
       if (!kycData) return;
-    
+      setLoading(true);
       const requestBody = {
         ActionID: '7',
         ModifiedBy: '9961',
@@ -547,11 +550,14 @@ export const ViewKYC: React.FunctionComponent<IEkycPrinceProps> = (props: IEkycP
         await insertHistory(kycData);
         setShowRejectModal(false);
         Swal.fire('Success', 'KYC Rejected', 'success');
-        histroy.push('/')
+        
       } catch (error) {
         console.error('Error rejecting KYC:', error);
     
         Swal.fire('Error', `Failed to reject KYC: ${error.message}`, 'error');
+      } finally {
+        setLoading(false);
+        histroy.push('/');
       }
     };
     
@@ -704,6 +710,7 @@ export const ViewKYC: React.FunctionComponent<IEkycPrinceProps> = (props: IEkycP
   
     // Create in Navision
     const createInNavision = async () => {
+      setLoading(true);
       if (!kycData) return;
     
       const params = new URLSearchParams({
@@ -758,14 +765,16 @@ export const ViewKYC: React.FunctionComponent<IEkycPrinceProps> = (props: IEkycP
           // Update state (async)
           setKycData(updatedKycData);
 
-          Swal.fire('Success', 'Details Updated in Navision!!', 'success');
           await updateKyc();
-
-          histroy.push('/')
+          Swal.fire('Success', 'Details Updated in Navision!!', 'success');
+          
         }
       } catch (error) {
         console.error('Error updating Navision:', error);
         Swal.fire('Error', 'Server Busy!!', 'error');
+      } finally {
+        setLoading(false);
+        histroy.push('/');
       }
     };
     
@@ -796,6 +805,12 @@ export const ViewKYC: React.FunctionComponent<IEkycPrinceProps> = (props: IEkycP
 
   return (
     <div className={`form-wrapper`}>
+      {/* SPINNER */}
+      {loading && (
+        <div className="loadingOverlay">
+          <div className="spinner"></div>
+        </div>
+      )}
 			{/* Tabs */}
 			<div className='tabsContainer'>
 				<div className="tabs">
