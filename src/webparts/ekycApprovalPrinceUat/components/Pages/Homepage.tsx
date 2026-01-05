@@ -222,6 +222,7 @@ const columnsConfig = [
     // Filter DashboardData based on searchQuery
     const filtered = DashboardData.filter((item) =>
       [
+        item.Id,
         item.EmployeeCode,
         item.FirmName,
         item.Email,
